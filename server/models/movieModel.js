@@ -26,4 +26,11 @@ module.exports = {
 
     return Movie.deleteOne({ title: movie.title }).exec();
   },
+  getFavorites: () => {
+    return Movie.find({}).exec();
+  },
 };
+
+// module.exports.getFavorites().then((data) => {
+//   console.log("db data", data);
+// });

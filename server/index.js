@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var app = express();
 const db = require("./models/movieModel");
+var controllers = require("./controllers/movieController");
 
 // Sign up and get your moviedb API key here:
 // https://www.themoviedb.org/account/signup
@@ -37,19 +38,27 @@ Use the routes below to build your application:
 
 //***********************************************************************************************************************
 
-app.get("/genres", function (req, res) {});
+app.get("/genres", function (req, res) {
+  controllers.getGenres(req, res);
+});
 
 app.get("/search", function (req, res) {
   // use this endpoint to search for movies by genres (using API key): https://api.themoviedb.org/3/discover/movie
   // and sort them by votes (worst first) using the search parameters in themoviedb API
   // do NOT save the results into the database; render results directly on the page
+  // console.log("SEARCH HIT", req.body);
+  console.log("client request", req.query.genre);
+  controllers.getSearch(req, res);
 });
 
 app.post("/save", function (req, res) {
-  console.log("save post hit");
+  console.log("hitting save");
   db.save(req)
     .then(() => {
-      res.sendStatus(201);
+      console.log("save done");
+      db.getFavorites().then((data) => {
+        res.send(data);
+      });
     })
     .catch((err) => {
       console.log("save route error:", err);
@@ -57,6 +66,7 @@ app.post("/save", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
+  console.log("delete hit");
   db.delete(req)
     .then(() => {
       res.send("favorite deleted");

@@ -1,34 +1,64 @@
-import React from 'react';
+import React from "react";
+import Axios from "axios";
 
 class Search extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      genres: []
+      genres: [],
+      currentGenre: { genre: 28 },
     };
+    this.getGenres = this.getGenres.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  componentDidMount() {
+    this.getGenres();
   }
   getGenres() {
-    //make an axios request in this component to get the list of genres from your endpoint GET GENRES
+    return Axios.get("/genres")
+      .then((data) => {
+        this.setState({ genres: data.data.genres });
+      })
+      .catch((err) => {
+        console.log("couldn't get genres", err);
+      });
+  }
+
+  handleChange(event) {
+    this.setState({
+      currentValue: event.target.value,
+    });
+  }
+
+  handleSearch() {
+    let selectedGenre = this.state.currentGenre;
+
+    this.props.getMovies(selectedGenre);
   }
 
   render() {
+    if (this.state.genres.length > 0) {
+    }
     return (
       <div className="search">
-        <button onClick={() => {this.props.swapFavorites()}}>{this.props.showFaves ? "Show Results" : "Show Favorites"}</button>
-        <br/><br/>
+        <button
+          onClick={() => {
+            this.props.swapFavorites();
+          }}
+        >
+          {this.props.showFaves ? "Show Results" : "Show Favorites"}
+        </button>
 
         {/* Make the select options dynamic from genres !!! */}
         {/* How can you tell which option has been selected from here? */}
 
-        <select>
-          <option value="theway">The Way</option>
-          <option value="thisway">This Way</option>
-          <option value="thatway">That Way</option>
+        <select onChange={this.handleChange}>
+          {this.state.genres.map((genre) => {})}
         </select>
-        <br/><br/>
 
-        <button>Search</button>
-
+        <button onClick={this.handleSearch}>Search</button>
       </div>
     );
   }
