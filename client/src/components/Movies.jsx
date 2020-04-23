@@ -7,7 +7,7 @@ class Movies extends React.Component {
 
   handleClick(movie) {
     console.log("this movie was clicked:", movie);
-    if (!this.props.favorites.includes(movie.id)) {
+    if (!this.props.favId.includes(movie.id)) {
       this.props.saveMovie(movie);
     } else {
       this.props.deleteMovie(movie);
@@ -43,7 +43,7 @@ class Movies extends React.Component {
                     this.handleClick(movie);
                   }}
                 >
-                  {this.props.favorites.includes(movie.id)
+                  {this.props.favId.includes(movie.id)
                     ? "remove favorite"
                     : "add to favorites"}
                 </button>

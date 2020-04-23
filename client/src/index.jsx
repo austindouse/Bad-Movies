@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       movies: [],
       favorites: [],
+      favId: [],
       showFaves: false,
     };
 
@@ -44,8 +45,15 @@ class App extends React.Component {
   saveMovie(movieObj) {
     // same as above but do something diff
     return Axios.post("/save", movieObj).then((data) => {
+      let idModel = [];
+
+      data.data.forEach((movie) => {
+        idModel.push(movie.id);
+      });
+      console.log(idModel);
       this.setState({
         favorites: data.data,
+        favId: idModel,
       });
     });
   }
@@ -58,6 +66,7 @@ class App extends React.Component {
   }
 
   swapFavorites() {
+    console.log("hit favorites");
     //dont touch
     this.setState({
       showFaves: !this.state.showFaves,
@@ -83,6 +92,7 @@ class App extends React.Component {
             }
             showFaves={this.state.showFaves}
             favorites={this.state.favorites}
+            favId={this.state.favId}
             saveMovie={this.saveMovie}
             deleteMovie={this.deleteMovie}
           />

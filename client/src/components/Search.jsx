@@ -27,7 +27,6 @@ class Search extends React.Component {
   }
 
   handleChange(event) {
-    console.log("event target", event.target.value);
     this.setState({
       currentGenre: event.target.value,
     });
@@ -35,7 +34,6 @@ class Search extends React.Component {
 
   handleSearch() {
     let selectedGenre = this.state.currentGenre;
-    console.log("selected genre", selectedGenre);
     let model = {
       id: selectedGenre,
     };
