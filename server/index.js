@@ -47,7 +47,7 @@ app.get("/search", function (req, res) {
   // and sort them by votes (worst first) using the search parameters in themoviedb API
   // do NOT save the results into the database; render results directly on the page
   // console.log("SEARCH HIT", req.body);
-  console.log("client request", req.query.genre);
+  console.log("client request", req.query.id);
   controllers.getSearch(req, res);
 });
 

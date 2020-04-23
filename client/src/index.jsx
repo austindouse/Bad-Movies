@@ -19,10 +19,11 @@ class App extends React.Component {
     this.getMovies = this.getMovies.bind(this);
     this.saveMovie = this.saveMovie.bind(this);
     this.deleteMovie = this.deleteMovie.bind(this);
+    this.swapFavorites = this.swapFavorites.bind(this);
   }
 
   componentDidMount() {
-    let seedGenre = { genre: 99 };
+    let seedGenre = { id: 99 };
     this.getMovies(seedGenre);
     this.saveMovie();
   }

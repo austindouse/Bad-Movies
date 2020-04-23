@@ -11,7 +11,7 @@ module.exports = {
     // use this endpoint to search for movies by genres, you will need an API key
     // https://api.themoviedb.org/3/discover/movie
     // and sort them by horrible votes using the search parameters in the API
-    let genreId = req.query.genre;
+    let genreId = req.query.id;
 
     apiHelpers
       .getMovies(genreId)

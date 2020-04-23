@@ -27,20 +27,22 @@ class Search extends React.Component {
   }
 
   handleChange(event) {
+    console.log("event target", event.target.value);
     this.setState({
-      currentValue: event.target.value,
+      currentGenre: event.target.value,
     });
   }
 
   handleSearch() {
     let selectedGenre = this.state.currentGenre;
-
-    this.props.getMovies(selectedGenre);
+    console.log("selected genre", selectedGenre);
+    let model = {
+      id: selectedGenre,
+    };
+    this.props.getMovies(model);
   }
 
   render() {
-    if (this.state.genres.length > 0) {
-    }
     return (
       <div className="search">
         <button
@@ -50,14 +52,20 @@ class Search extends React.Component {
         >
           {this.props.showFaves ? "Show Results" : "Show Favorites"}
         </button>
-
+        <br />
+        <br />
         {/* Make the select options dynamic from genres !!! */}
         {/* How can you tell which option has been selected from here? */}
 
         <select onChange={this.handleChange}>
-          {this.state.genres.map((genre) => {})}
+          {this.state.genres.map((genre) => {
+            return (
+              <option value={JSON.stringify(genre.id)}>{genre.name}</option>
+            );
+          })}
         </select>
-
+        <br />
+        <br />
         <button onClick={this.handleSearch}>Search</button>
       </div>
     );
